@@ -11,6 +11,9 @@ API_TOKEN   = process.env.HUBOT_IDOBATA_API_TOKEN
 
 class Idobata extends Hubot.Adapter
   send: (envelope, strings...) ->
+    console.log '*****'
+    console.log 'before send'
+    console.log '*****'
     @_postMessage string, envelope.message.data.room_id for string in strings
 
   reply: (envelope, strings...) ->
@@ -50,7 +53,13 @@ class Idobata extends Hubot.Adapter
 
       channel = pusher.subscribe(bot.channel_name)
 
+      console.log '*****'
+      console.log 'before message create'
+      console.log '*****'
       channel.bind 'message_created', (data) =>
+        console.log '*****'
+        console.log 'inside message create'
+        console.log '*****'
         {message} = data
 
         return if bot.id == message.sender_id
